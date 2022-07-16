@@ -1,0 +1,15 @@
+{
+  "name": "akari-messenger",
+  "version": "1.0.0",
+  "description": "Messenger Version AI Chat Bot",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rhythm113",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.1",
+    "messaging-api-messenger": "^1.1.0"
+  }
+}
