@@ -40,6 +40,7 @@ server.post('/', (req, res) => {
   }
   client.sendText(userId, text);
   res.sendStatus(200);
+  console.log(req);
 });
 
 
