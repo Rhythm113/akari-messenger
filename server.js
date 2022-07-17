@@ -4,7 +4,10 @@ var server = require('express')();
 const{ JsonDB } = require('node-json-db');
 const { Config } = require('node-json-db/dist/lib/JsonDBConfig');
 const cleverbot = require("./module.js");
-const router = server.Router();
+const express = require('express');
+const app = express();
+const path = require('path');
+const router = express.Router();
 
 
 var db = new JsonDB(new Config("chats", true, false, '/'));
