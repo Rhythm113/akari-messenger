@@ -26,7 +26,7 @@ server.get('/', (req, res) => {
     res.sendStatus(403);
   }
 });
-server.listen(process.env.PORT | 8080);
+server.listen(process.env.PORT || 8080);
 
 
 /*
