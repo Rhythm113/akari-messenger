@@ -4,6 +4,7 @@ var server = require('express')();
 const{ JsonDB } = require('node-json-db');
 const { Config } = require('node-json-db/dist/lib/JsonDBConfig');
 const cleverbot = require("./module.js");
+const router = express.Router();
 
 
 var db = new JsonDB(new Config("chats", true, false, '/'));
@@ -76,4 +77,10 @@ server.post('/', (req, res) => {
     console.log(error);
 }
 
+});
+
+
+
+router.get('/privacy',function(req,res){
+  res.sendFile(path.join(__dirname+'/privacy.html'));
 });
