@@ -1,4 +1,5 @@
 const { MessengerClient } = require('messaging-api-messenger');
+const bodyParser = require('body-parser');
 var server = require('express')();
 const{ JsonDB } = require('node-json-db');
 const { Config } = require('node-json-db/dist/lib/JsonDBConfig');
