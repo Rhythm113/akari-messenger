@@ -1,6 +1,12 @@
 const { MessengerClient } = require('messaging-api-messenger');
-const bodyParser = require('body-parser');
-var server =  require('express')();
+var app = require('express')();
+var server = require('http').Server(app);
+const{ JsonDB } = require('node-json-db');
+const { Config } = require('node-json-db/dist/lib/JsonDBConfig');
+const cleverbot = require("./module.js");
+
+
+var db = new JsonDB(new Config("chats", true, false, '/'));
 
 const client = new MessengerClient({
   accessToken: process.env.ACCESS_TOKEN,
@@ -8,11 +14,7 @@ const client = new MessengerClient({
   appSecret: process.env.APP_SECRET,
   version: '6.0',
 });
-/*
-var ACCESS_TOKEN = 'EAAK9TW2xFlgBALoZCtL6wj0vROi0m50ZCu3vhHM1889DR8xFzdcZCY4PS1mlHtQlZASYrnegFnqKZC7ZCN9BiHa6RwhhYx3b3DB1FJ2JXEnYKFTSQVj5mHrVG657VDIMstMoiw8weXZAu1cNZAVjeHtHwAHjPEpDOqodYEmaXLveMw5dda9uTvAalpxEX485qcBnw1EEqj61gQZDZD'
-var APP_ID = '771090203874904'
-var APP_SECRET = '1e0c1fc0fb1165bdfa4369d9f4fdd857'
-*/
+
 server.use(bodyParser.json());
 
 server.get('/', (req, res) => {
@@ -32,26 +34,46 @@ server.listen(process.env.PORT || 8080);
 
 
 server.post('/', (req, res) => {
-  client.setGetStarted('DB');
   const event = req.body.entry[0].messaging[0];
   const userId = event.sender.id;
-  const { text }  = event.message;
-  if(typeof event.message.text == 'undefined'){
-    client.sendText(userId , 'Error Unsupported type')
+  const text  = event.message.text;
+  if(typeof text == 'undefined'){
+    client.sendText(userId , "I Won't reply to that")
   }
-  client.sendText(userId, text);
-  res.sendStatus(200);
-  console.log(req.body.entry[0]);
+  try{
+    
+    var data_rcv = db.getData(`/${userId}/rcv`);
+    }catch(err){
+      console.log("Errrr")
+    }if(typeof data_rcv == 'undefined'){
+    db.push(`/${userId}`, {rcv:["null","null"]});
+    db.save();
+    db.reload();
+      console.log('lol f okk')  
+  }
+  try {
+    var data_rcv = db.getData(`/${userId}/rcv`);
+    console.log(data_rcv[0])
+    if(data_rcv[0] == "null"){
+        cleverbot(text).then(re => {
+        client.sendText(userId, `${re}`).catch((err) => console.log(err))
+        res.sendStatus(200);
+        db.push(`/${userId}`, {rcv:[`${text}`,`${re}`]});
+        db.reload()
+        console.log(re)});
+        console.log(text);
+
+    }else{
+        console.log(data_rcv);
+        cleverbot(text,data_rcv).then(re2 => {
+        client.sendText(userId, `${re2}`).catch((err) => console.log(err))
+        res.sendStatus(200);
+        db.push(`/${userId}`, {rcv:[`${text}`,`${re2}`]});
+        db.reload();
+    })}
+   
+} catch(error) {
+    console.log(error);
+}
+
 });
-
-
-/*
-const client = new MessengerClient({
-  accessToken: ACCESS_TOKEN,
-  appId: APP_ID,
-  appSecret: APP_SECRET,
-  version: '6.0',
-  skipAppSecretProof: true,
-});
-
-*/
