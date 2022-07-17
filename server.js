@@ -32,6 +32,7 @@ server.listen(process.env.PORT || 8080);
 
 
 server.post('/', (req, res) => {
+  client.setGetStarted('DB');
   const event = req.body.entry[0].messaging[0];
   const userId = event.sender.id;
   const { text }  = event.message;
