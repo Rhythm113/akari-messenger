@@ -34,8 +34,8 @@ server.listen(process.env.PORT || 8080);
 server.post('/', (req, res) => {
   const event = req.body.entry[0].messaging[0];
   const userId = event.sender.id;
-  const text  = event.message.text;
-  if(typeof text == 'undefined'){
+  const { text }  = event.message;
+  if(typeof text.text == 'undefined'){
     client.sendText(userId , 'Error Unsupported type')
   }
   client.sendText(userId, text);
