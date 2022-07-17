@@ -30,6 +30,10 @@ server.get('/', (req, res) => {
     res.sendStatus(403);
   }
 });
+
+server.get('/privacy',function(req,res){
+  res.sendFile(path.join(__dirname+'/privacy.html'));
+});
 server.listen(process.env.PORT || 8080);
 
 
@@ -78,10 +82,4 @@ server.post('/', (req, res) => {
     console.log(error);
 }
 
-});
-
-
-
-server.get('/privacy',function(req,res){
-  res.sendFile(path.join(__dirname+'/privacy.html'));
 });
