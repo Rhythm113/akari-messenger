@@ -1,6 +1,5 @@
 const { MessengerClient } = require('messaging-api-messenger');
-var app = require('express')();
-var server = require('http').Server(app);
+var server = require('express')();
 const{ JsonDB } = require('node-json-db');
 const { Config } = require('node-json-db/dist/lib/JsonDBConfig');
 const cleverbot = require("./module.js");
