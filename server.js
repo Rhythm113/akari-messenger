@@ -1,4 +1,5 @@
 const { MessengerClient } = require('messaging-api-messenger');
+const bodyParser = require('body-parser');
 var app = require('express')();
 var server = require('http').Server(app);
 
