@@ -29,7 +29,7 @@ server.get('/', (req, res) => {
 server.listen(process.env.PORT || 8080);
 
 
-/*
+
 
 server.post('/', (req, res) => {
   const event = req.body.entry[0].messaging[0];
@@ -40,7 +40,7 @@ server.post('/', (req, res) => {
 });
 
 
-
+/*
 const client = new MessengerClient({
   accessToken: ACCESS_TOKEN,
   appId: APP_ID,
