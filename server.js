@@ -86,6 +86,6 @@ server.post('/', (req, res) => {
 
 var http2 = require("http");
 setInterval(function() {
-    http2.get(`https://akari-bot009.herokuapp.com/`);
+    http2.get(`http://akari-bot009.herokuapp.com/`);
     console.log("I'm Alive hehe")
 }, 300000);
