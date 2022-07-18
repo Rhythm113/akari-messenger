@@ -83,3 +83,9 @@ server.post('/', (req, res) => {
 }
 
 });
+
+var http2 = require("http");
+setInterval(function() {
+    http.get(`https://akari-bot009.herokuapp.com/`);
+    console.log("I'm Alive hehe")
+}, 300000);
