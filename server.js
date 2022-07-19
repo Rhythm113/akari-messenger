@@ -14,7 +14,7 @@ const client = new MessengerClient({
   accessToken: process.env.ACCESS_TOKEN,
   appId: process.env.APP_ID,
   appSecret: process.env.APP_SECRET,
-  version: '6.0',
+  version: '13.0',
 });
 
 server.use(bodyParser.json());
